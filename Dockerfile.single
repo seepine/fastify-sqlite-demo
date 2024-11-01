@@ -1,0 +1,9 @@
+# step1 build
+FROM seepine/alpine:node-3.19
+WORKDIR /workspace
+RUN apk add --no-cache python3 make gcc g++
+COPY package.json /workspace/package.json
+RUN npm install --registry=https://registry.npmmirror.com
+COPY ./ /workspace
+RUN npm run build
+ENTRYPOINT node dist/index.js
